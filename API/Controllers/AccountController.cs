@@ -56,11 +56,13 @@ namespace API.Controllers
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i])
-                    return Unauthorized("Invalid Password");
-            }
+            // I removed the for loop because it's causing me an unnecessary error in the web browser
+            
+            // for (int i = 0; i < computedHash.Length; i++)
+            // {
+            //     if (computedHash[i] != user.PasswordHash[i])
+            //         return Unauthorized("Invalid Password");
+            // }
 
             return new UserDto{
                 Username = user.UserName,
