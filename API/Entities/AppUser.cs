@@ -4,6 +4,13 @@ using API.Extensions;
 
 namespace API.Entities
 {
+    public enum UserRoles
+    {
+        Regular,
+        Administrator,
+        Agent,
+        Platform
+    }
     public class AppUser
     {
         public int Id { get; set; }
