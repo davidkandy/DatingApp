@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.Identity.Mongo" Version="8.1.0" />
+    <PackageReference Include="AspNetCore.Identity.MongoDbCore" Version="3.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="IFramework.EntityFrameworkCore.Blueshift.MongoDB" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
@@ -13,8 +16,12 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.5" />
+    <PackageReference Include="Mono.Reflection.Core" Version="1.1.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.0" />
+    <PackageReference Include="Unity.Microsoft.DependencyInjection" Version="5.11.5" />
   </ItemGroup>
 
 </Project>
