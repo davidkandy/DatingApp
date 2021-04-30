@@ -5,6 +5,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,6 +57,11 @@ namespace API.Controllers
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
+            return new UserDto{
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
+
             // I removed the for loop because it's causing me an unnecessary error in the web browser
             
             // for (int i = 0; i < computedHash.Length; i++)
@@ -63,11 +69,6 @@ namespace API.Controllers
             //     if (computedHash[i] != user.PasswordHash[i])
             //         return Unauthorized("Invalid Password");
             // }
-
-            return new UserDto{
-                Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
-            };
         }
 
         private async Task<bool> UserExists(string username)
