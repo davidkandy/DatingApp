@@ -59,6 +59,7 @@ namespace API.Extensions.UnityExtensions
                 // Resolve ILogger by simply creating it based on the current class
                 if (!prop.PropertyType.IsGenericType && prop.PropertyType.IsAssignableTo<ILogger>())
                     value = container.TryResolve<ILoggerFactory>().CreateLogger(context.Type);
+
                 else value = context.Container.TryResolve(prop.PropertyType);
 
                 try

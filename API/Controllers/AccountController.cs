@@ -5,9 +5,12 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using API.Services;
+using API.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using API.Extensions.UnityExtensions;
 
 namespace API.Controllers
 {
@@ -15,6 +18,9 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
+
+        [DeepDependency]
+        IJwtFactory JwtFactory { get; }
         public AccountController(DataContext context, ITokenService tokenService)
         {
             _tokenService = tokenService;
