@@ -1,16 +1,15 @@
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions.UnityExtensions;
 using API.Interfaces;
-using API.Services;
 using API.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using API.Extensions.UnityExtensions;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -19,7 +18,7 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
 
-        [DeepDependency]
+        // [DeepDependency]
         IJwtFactory JwtFactory { get; }
         public AccountController(DataContext context, ITokenService tokenService)
         {
@@ -67,13 +66,14 @@ namespace API.Controllers
 
             return Ok(new AccessTokenModel() { AccessToken = await JwtFactory.GenerateToken(user) });
 
-            // return new UserDto{
+            // return new UserDto
+            // {
             //     Username = user.UserName,
             //     Token = _tokenService.CreateToken(user)
             // };
 
             // I removed the for loop because it's causing me an unnecessary error in the web browser
-            
+
             // for (int i = 0; i < computedHash.Length; i++)
             // {
             //     if (computedHash[i] != user.PasswordHash[i])

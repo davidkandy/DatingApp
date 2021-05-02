@@ -19,10 +19,10 @@ namespace API.Services
 
         #region Internals
 
-        [DeepDependency]
+        // [DeepDependency]
         UserManager<AppUser> UserManager { get; }
 
-        [DeepDependency]
+        // [DeepDependency]
         IOptions<JwtIssuerOptions> IssuerOptions { get; }
 
         public const string JWT_CLAIM_ID = "id";
