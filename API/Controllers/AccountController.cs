@@ -1,7 +1,6 @@
 using API.Data;
 using API.DTOs;
 using API.Entities;
-using API.Extensions.UnityExtensions;
 using API.Interfaces;
 using API.Models.ViewModels;
 using API.Services;
@@ -18,12 +17,17 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
 
-        // [DeepDependency]
         IJwtFactory JwtFactory { get; }
+
         public AccountController(DataContext context, ITokenService tokenService)
         {
             _tokenService = tokenService;
             _context = context;
+        }
+
+        public AccountController(IJwtFactory factory)
+        {
+
         }
 
         [HttpPost("register")]
