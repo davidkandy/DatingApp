@@ -20,13 +20,8 @@ namespace API.Services
         #region Internals
 
         // [DeepDependency]
-<<<<<<< HEAD
-        UserManager<AppUser> UserManager { get; }
+        // UserManager<AppUser> UserManager { get; }
         
-=======
-        //UserManager<AppUser> UserManager { get; }
-
->>>>>>> 734ff741169e73afdb5d18a32a307f9eb54cf2fc
         // [DeepDependency]
         IOptions<JwtIssuerOptions> IssuerOptions { get; }
 
@@ -38,16 +33,6 @@ namespace API.Services
         #endregion
 
         #endregion
-
-
-        #region Constructors
-        public JwtFactory(UserManager<AppUser> userManager, IOptions<JwtIssuerOptions> options)
-        {
-            UserManager = userManager;
-            IssuerOptions = options;
-        }
-        #endregion
-
 
         #region Methods
 
