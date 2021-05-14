@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 using API.Entities;
 using API.Extensions.UnityExtensions;
 using API.Models.Options;
+using Microsoft.Extensions.Configuration;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+
 namespace API.Services
 {
     public class JwtFactory : IJwtFactory
@@ -20,8 +24,8 @@ namespace API.Services
         #region Internals
 
         // [DeepDependency]
-        UserManager<AppUser> UserManager { get; }
-        
+        //UserManager<AppUser> UserManager { get; }
+
         // [DeepDependency]
         IOptions<JwtIssuerOptions> IssuerOptions { get; }
 
@@ -34,15 +38,15 @@ namespace API.Services
 
         #endregion
 
-
         #region Constructors
-        public JwtFactory(UserManager<AppUser> userManager, IOptions<JwtIssuerOptions> options)
+        public JwtFactory(IOptions<JwtIssuerOptions> issuerOptions, IConfiguration config)
         {
-            UserManager = userManager;
-            IssuerOptions = options;
+            IssuerOptions = issuerOptions;
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            Options.SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
         }
         #endregion
-
 
         #region Methods
 
@@ -52,7 +56,7 @@ namespace API.Services
         {
             //IList<string> roles = await UserManager.GetRolesAsync(user);
             //string role = roles.FirstOrDefault();
-            
+
             var identity = new ClaimsIdentity(new GenericIdentity(user.Id.ToString(), "Token"), new[]
             {
                 new Claim(JWT_CLAIM_ID, user.Id.ToString()),
