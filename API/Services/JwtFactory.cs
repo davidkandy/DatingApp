@@ -10,10 +10,6 @@ using System.Threading.Tasks;
 using API.Entities;
 using API.Extensions.UnityExtensions;
 using API.Models.Options;
-using Microsoft.Extensions.Configuration;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-
 namespace API.Services
 {
     public class JwtFactory : IJwtFactory
@@ -36,16 +32,6 @@ namespace API.Services
 
         #endregion
 
-        #endregion
-
-        #region Constructors
-        public JwtFactory(IOptions<JwtIssuerOptions> issuerOptions, IConfiguration config)
-        {
-            IssuerOptions = issuerOptions;
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
-            Options.SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-        }
         #endregion
 
         #region Methods

@@ -7,7 +7,6 @@ using API.Data;
 using API.Extensions;
 using API.Interfaces;
 using API.Middleware;
-using API.Models.Options;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -26,22 +25,19 @@ namespace API
 {
     public class Startup
     {
-        IConfiguration Configuration { get; }
+        private readonly IConfiguration _config;
         public Startup(IConfiguration config)
         {
-            Configuration = config;
+            _config = config;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationServices(Configuration);
+            services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();
-            services.AddIdentityServices(Configuration);
-
-            services.AddScoped<IJwtFactory, JwtFactory>();
-            services.AddAuthorization();
+            services.AddIdentityServices(_config);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +52,7 @@ namespace API
             //     app.UseDeveloperExceptionPage();
             // }
 
+            app.UseHttpsRedirection();
 
             app.UseRouting();
             

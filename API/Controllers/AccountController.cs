@@ -17,15 +17,13 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        private readonly IJwtFactory _jwtFactory;
 
         // [DeepDependency]
-
-        public AccountController(DataContext context, ITokenService tokenService, IJwtFactory jwtFactory)
+        IJwtFactory JwtFactory { get; }
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             _tokenService = tokenService;
             _context = context;
-            _jwtFactory = jwtFactory;
         }
 
         [HttpPost("register")]
@@ -46,7 +44,7 @@ namespace API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(new AccessTokenModel() { AccessToken = await _jwtFactory.GenerateToken(user) });
+            return Ok(new AccessTokenModel() { AccessToken = await JwtFactory.GenerateToken(user) });
 
             // return new UserDto{
             //     Username = user.UserName,
@@ -66,7 +64,7 @@ namespace API.Controllers
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            return Ok(new AccessTokenModel() { AccessToken = await _jwtFactory.GenerateToken(user) });
+            return Ok(new AccessTokenModel() { AccessToken = await JwtFactory.GenerateToken(user) });
 
             // return new UserDto
             // {
