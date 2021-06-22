@@ -46,12 +46,12 @@ namespace API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(new AccessTokenModel() { AccessToken = await _jwtFactory.GenerateToken(user) });
+            // return Ok(new AccessTokenModel() { AccessToken = await _jwtFactory.GenerateToken(user) });
 
-            // return new UserDto{
-            //     Username = user.UserName,
-            //     Token = _tokenService.CreateToken(user)
-            // };
+            return new UserDto{
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
 
         [HttpPost("login")]
@@ -66,13 +66,13 @@ namespace API.Controllers
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            return Ok(new AccessTokenModel() { AccessToken = await _jwtFactory.GenerateToken(user) });
+            // return Ok(new AccessTokenModel() { AccessToken = await _jwtFactory.GenerateToken(user) });
 
-            // return new UserDto
-            // {
-            //     Username = user.UserName,
-            //     Token = _tokenService.CreateToken(user)
-            // };
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
 
             // I removed the for loop because it's causing me an unnecessary error in the web browser
 
